@@ -1,10 +1,15 @@
+import { Injectable } from "@angular/core";
+import { Http } from "@angular/http";
 import { Quote } from "./quote.model";
 
+@Injectable()
 export class QuoteService {
-  public getQuoteOfTheDay(): Quote {
-    return {
-      line: "Lepiej zaliczać się do niektórych, niż do wszystkich.",
-      author: "Andrzej Sapkowski",
-    };
+  constructor(private http: Http) {}
+
+  public getQuoteOfTheDay(): Promise<Quote> {
+    return this.http
+      .get("/quote.json")
+      .toPromise()
+      .then((response) => response.json());
   }
 }

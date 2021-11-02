@@ -6,15 +6,15 @@ import { QuoteService } from "./quote.service";
   selector: "quote-app",
   template: `
     <p>
-      <em>{{ quote.line }}</em>
+      <em>{{ quote?.line }}</em>
     </p>
-    <p>{{ quote.author }}</p>
+    <p>{{ quote?.author }}</p>
   `,
 })
 export class QuoteComponent {
   quote: Quote;
 
   constructor(quoteService: QuoteService) {
-    this.quote = quoteService.getQuoteOfTheDay();
+    quoteService.getQuoteOfTheDay().then((quote) => (this.quote = quote));
   }
 }
